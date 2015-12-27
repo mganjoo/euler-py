@@ -1,51 +1,45 @@
 import sys
 
 
-def rng(n):
+def zeros(n):
+    return [[0 for _ in range(n)] for _ in range(n)]
+
+
+def random_number_gen(n):
     t = 0
-    mask = (2 << 20) - 1
+    mask = (1 << 20) - 1
     sub = 1 << 19
     for k in range(n + 1):
         t = (615949 * t + 797807) & mask
         yield t - sub
 
 
-def find_min_sum_triangle(triangle):
+def fill_triangle(triangle):
+    n = len(triangle)
+    for i in range(n):
+        triangle[i] += [0] * (n - i - 1)
+
+
+def find_min_triangle_sum(triangle):
+    fill_triangle(triangle)
+
     n = len(triangle)
 
-    vertical_sums = [triangle[0]]
-    for i in range(1, n):
-        vertical_sums.append([triangle[i][j] + vertical_sums[i - 1][j]
-                              for j in range(n)])
-
-    diagonal_sums = [[0] * i +
-                     [triangle[i][0]] + [0] * (n - i - 1) for i in range(n)]
+    row_sums = zeros(n)
     for i in range(n):
-        for j in range(i + 1, n):
-            diagonal_sums[i][j] = diagonal_sums[i][j - 1] + triangle[j][j - i]
+        row_sums[i][0] = triangle[i][0]
+        for j in range(1, n):
+            row_sums[i][j] = row_sums[i][j - 1] + triangle[i][j]
 
-    triangle_sums = [[[0] * n for i in range(n)] for j in range(n)]
-
-    for j in range(n):
-        triangle_sums[0][j][0] = sum(vertical_sums[j][t] for t in range(n))
-    for i in range(1, n):
-        for j in range(i, n):
-            triangle_sums[i][j][0] = (triangle_sums[i - 1][j][0] -
-                                      diagonal_sums[i - 1][j])
-            for k in range(1, i + 1):
-                subtr = (vertical_sums[j][k - 1] -
-                         (vertical_sums[i - 2][k - 1] if i >= 2 else 0))
-                triangle_sums[i][j][k] = triangle_sums[i - 1][j][k - 1] - subtr
-
-    min_sum = sys.maxint
+    min_sum = sys.maxsize
     for i in range(n):
-        for j in range(n):
-            for k in range(n):
-                if triangle_sums[i][j][k] < min_sum:
-                    min_sum = triangle_sums[i][j][k]
-                    min_i, min_j, min_k = i, j, k
+        for j in range(i + 1):
+            cur_sum = 0
+            for k in range(i, n):
+                cur_sum += (row_sums[k][k - i + j] -
+                            (row_sums[k][j - 1] if j > 0 else 0))
+                min_sum = min(cur_sum, min_sum)
 
-    print(min_i, min_j, min_k)
     return min_sum
 
 
@@ -56,20 +50,20 @@ def pretty_print_matrix(matrix):
             sys.stdout.write("{:>5} ".format(c))
         sys.stdout.write("\n")
 
+
+def print_min_triangle_sum(triangle):
+    print("Minimum sum is {}".format(find_min_triangle_sum(triangle)))
+
+
 if __name__ == "__main__":
-    # with open("problem150_sample.txt") as f:
-    #     n = int(f.readline())
-    #     triangle = []
-    #     for i in range(n):
-    #         triangle.append([0] * n)
-    #         for j in range(i + 1):
-    #             triangle[i][j] = int(f.readline())
+    sample_triangle = [[15],
+                       [-14, -7],
+                       [20, -13, -5],
+                       [-3, 8, 23, -26],
+                       [1, -4, -5, -18, 5],
+                       [-16, 31, 2, 9, 28, 3]]
+    g = random_number_gen(500500)
+    large_triangle = [[next(g) for j in range(i + 1)] for i in range(1000)]
 
-    # print("Minimum sum is {}".format(find_min_sum_triangle(triangle)))
-    triangle = [[0] * 1000 for _ in range(1000)]
-    for x in rng(500500):
-        for i in range(1000):
-            for j in range(i + 1):
-                triangle[i][j] = x
-
-    print("Minimum sum is {}".format(find_min_sum_triangle(triangle)))
+    print_min_triangle_sum(sample_triangle)
+    print_min_triangle_sum(large_triangle)
