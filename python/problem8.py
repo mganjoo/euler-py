@@ -26,7 +26,7 @@ def print_find_largest_product_window(n_str, count):
 
 
 if __name__ == "__main__":
-    with open("problem8.txt") as num_file:
+    with open("../data/p08_number.txt") as num_file:
         num_str = "".join(line.strip() for line in num_file)
 
     print_find_largest_product_window(num_str, 4)

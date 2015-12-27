@@ -10,9 +10,10 @@ def max_path_sum(triangle):
     return max_sum[0][0]
 
 
-if __name__ == "__main__":
-    with open("p067_triangle.txt") as f:
-    # with open("problem18.txt") as f:
-        triangle = [[int(n) for n in line.split()] for line in f]
+def read_triangle(filename):
+    with open(filename) as f:
+        return [[int(n) for n in line.split()] for line in f]
 
-    print(max_path_sum(triangle))
+if __name__ == "__main__":
+    print(max_path_sum(read_triangle("../data/p018_triangle.txt")))
+    print(max_path_sum(read_triangle("../data/p067_triangle.txt")))

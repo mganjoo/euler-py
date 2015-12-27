@@ -43,10 +43,11 @@ def find_min_triangle_sum(triangle):
     return min_sum
 
 
+# Debug tool
 def pretty_print_matrix(matrix):
     sys.stdout.write("Matrix:\n")
-    for line in matrix:
-        for c in line:
+    for row in matrix:
+        for c in row:
             sys.stdout.write("{:>5} ".format(c))
         sys.stdout.write("\n")
 
@@ -66,4 +67,5 @@ if __name__ == "__main__":
     large_triangle = [[next(g) for j in range(i + 1)] for i in range(1000)]
 
     print_min_triangle_sum(sample_triangle)
+    # Takes forever in Python!
     print_min_triangle_sum(large_triangle)

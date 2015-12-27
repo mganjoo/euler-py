@@ -54,7 +54,7 @@ class Triangle:
 if __name__ == "__main__":
 
     origin = Vector(0, 0)
-    with open("p102_triangles.txt") as csvfile:
+    with open("../data/p102_triangles.txt") as csvfile:
         triangle_reader = csv.reader(csvfile)
         print(sum(Triangle.from_coord_list(row).contains(origin)
                   for row in triangle_reader))
