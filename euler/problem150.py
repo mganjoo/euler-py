@@ -24,12 +24,14 @@ def find_min_triangle_sum(triangle_arr):
     row_sums = np.cumsum(triangle, axis=1)
     row_sums = np.concatenate((np.zeros((n, 1)), row_sums), axis=1)
 
-    min_sum = np.zeros((n, n))
+    min_sum = np.zeros((n))
+
     for i in range(n):
-        kv = np.arange(i, n)
-        for j in range(i + 1):
-            min_sum[i, j] = ((row_sums[kv, kv - i + j + 1] - row_sums[kv, j])
-                             .cumsum().min())
+        j = np.arange(i + 1)
+        k = np.arange(i, n)
+        jv, kv = np.meshgrid(j, k, indexing='ij')
+        min_sum[i] = np.min(np.cumsum(
+            row_sums[kv, kv - i + jv + 1] - row_sums[kv, jv], axis=1))
 
     return min_sum.min()
 
@@ -61,6 +63,6 @@ if __name__ == "__main__":
     large_triangle = [[next(g) for j in range(i + 1)]
                       for i in range(1000)]
 
-    print_min_triangle_sum(sample_triangle_mini)
-    print_min_triangle_sum(sample_triangle)
+    # print_min_triangle_sum(sample_triangle_mini)
+    # print_min_triangle_sum(sample_triangle)
     print_min_triangle_sum(large_triangle)
