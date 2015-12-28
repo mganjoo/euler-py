@@ -50,19 +50,16 @@ def print_min_triangle_sum(triangle):
 
 
 if __name__ == "__main__":
-    sample_triangle_mini = [[14],
-                            [-15, -7],
-                            [19, -13, -5]]
     sample_triangle = [[14],
                        [-15, -7],
                        [19, -13, -5],
                        [-4, 8, 23, -26],
                        [0, -4, -5, -18, 5],
                        [-17, 31, 2, 9, 28, 3]]
+
     g = random_number_gen(500500)
     large_triangle = [[next(g) for j in range(i + 1)]
                       for i in range(1000)]
 
-    # print_min_triangle_sum(sample_triangle_mini)
-    # print_min_triangle_sum(sample_triangle)
+    print_min_triangle_sum(sample_triangle)
     print_min_triangle_sum(large_triangle)
