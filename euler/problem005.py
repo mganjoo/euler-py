@@ -6,7 +6,7 @@ import math
 
 
 def esieve(n):
-    isprime = [False, False] + [False, True] * (n - 1)
+    isprime = [False, False] + [True] * (n - 1)
     p = 2
     while p * p <= n:
         j = p * p
@@ -21,7 +21,7 @@ def esieve(n):
     return [i for i, x in enumerate(isprime) if x]
 
 
-def smallest_multiple_seq(n):
+def solution(n):
     primes = esieve(n)
     num = 1
     sqrtn = math.sqrt(n)
@@ -32,11 +32,5 @@ def smallest_multiple_seq(n):
     return num
 
 
-def print_smallest_multiple_seq(n):
-    print("Smallest number divisible by all numbers from 1 to {} is {}"
-          .format(n, smallest_multiple_seq(n)))
-
-if __name__ == "__main__":
-    print_smallest_multiple_seq(10)
-    print_smallest_multiple_seq(20)
-    print_smallest_multiple_seq(30)
+def args():
+    return [20]

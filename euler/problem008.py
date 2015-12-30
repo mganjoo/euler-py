@@ -1,4 +1,12 @@
-def find_largest_product_window(n_str, count):
+# The four adjacent digits in the 1000-digit number that have the greatest
+# product are 9 × 9 × 8 × 9 = 5832. Find the thirteen adjacent digits in the
+# 1000-digit number that have the greatest product. What is the value of this
+# product?
+
+import pkg_resources
+
+
+def solution(n_str, count):
     n = len(n_str)
     prod = 1
     max_prod = prod
@@ -11,23 +19,13 @@ def find_largest_product_window(n_str, count):
         nxt = max(int(n_str[i]), 1)
         prod = prod // prv * nxt
         if i >= no_max_till and prod > max_prod:
-            l = i - count + 1
-            r = i + 1
             max_prod = prod
 
-    return (l, r, max_prod)
+    return max_prod
 
 
-def print_find_largest_product_window(n_str, count):
-    l, r, max_prod = find_largest_product_window(n_str, count)
-    print("Largest {}-digit product in number is {} = {}".format(
-        count, "x".join(n_str[l:r]), max_prod
-    ))
-
-
-if __name__ == "__main__":
-    with open("../data/p08_number.txt") as num_file:
+def args():
+    fn = pkg_resources.resource_filename(__name__, "data/p008_number.txt")
+    with open(fn) as num_file:
         num_str = "".join(line.strip() for line in num_file)
-
-    print_find_largest_product_window(num_str, 4)
-    print_find_largest_product_window(num_str, 13)
+    return [num_str, 13]

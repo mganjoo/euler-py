@@ -4,7 +4,7 @@
 import math
 
 
-def largest_prime_factor(n):
+def solution(n):
     if n == 1:
         return 1
     while n % 2 == 0:
@@ -26,12 +26,5 @@ def largest_prime_factor(n):
     return p if n == 1 else n
 
 
-def print_largest_prime_factor(n):
-    print("Largest prime factor of {} is {}"
-          .format(n, largest_prime_factor(n)))
-
-if __name__ == "__main__":
-    print_largest_prime_factor(13195)
-    print_largest_prime_factor(600851475143)
-    print_largest_prime_factor(9007199254740991)
-    print_largest_prime_factor(9007199254740993)
+def args():
+    return [600851475143]

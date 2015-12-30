@@ -1,4 +1,4 @@
-def max_path_sum(triangle):
+def solution(triangle):
     h = len(triangle)
     max_sum = [[0 for j in range(i + 1)] for i in range(h - 1)]
     max_sum.append([triangle[h - 1][j] for j in range(h)])
@@ -14,6 +14,6 @@ def read_triangle(filename):
     with open(filename) as f:
         return [[int(n) for n in line.split()] for line in f]
 
-if __name__ == "__main__":
-    print(max_path_sum(read_triangle("../data/p018_triangle.txt")))
-    print(max_path_sum(read_triangle("../data/p067_triangle.txt")))
+
+def full(data_path):
+    return [read_triangle(triangle_file)]

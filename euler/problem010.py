@@ -2,7 +2,7 @@
 # Find the sum of all the primes below two million.
 
 
-def prime_sum(n):
+def solution(n):
     isprime = [False, False] + [False, True] * (n - 1)
     p = 2
     sum_primes = 0
@@ -19,7 +19,6 @@ def prime_sum(n):
 
     return sum_primes
 
-if __name__ == "__main__":
-    n = 2000000
-    print("Sum of primes less than {} is {}"
-          .format(n, prime_sum(n)))
+
+def full():
+    return [2000000]
