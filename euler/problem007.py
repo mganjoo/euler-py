@@ -23,5 +23,9 @@ def solution(n):
     return p - 2
 
 
-def args():
+def test_cases(*args):
+    return [([6], 13)]
+
+
+def args(*args):
     return [10001]

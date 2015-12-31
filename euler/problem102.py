@@ -1,3 +1,19 @@
+# Three distinct points are plotted at random on a Cartesian plane, for which
+# -1000 <= x, y <= 1000, such that a triangle is formed.
+#
+# Consider the following two triangles:
+#
+# A(-340,495), B(-153,-910), C(835,-947)
+#
+# X(-175,41), Y(-421,-714), Z(574,-645)
+#
+# It can be verified that triangle ABC contains the origin, whereas triangle XYZ
+# does not.
+#
+# Using triangles.txt (right click and 'Save Link/Target As...'), a 27K text
+# file containing the co-ordinates of one thousand "random" triangles, find the
+# number of triangles for which the interior contains the origin.
+
 import csv
 
 
@@ -51,10 +67,17 @@ class Triangle:
                 (prod_a > 0 and prod_b > 0 and prod_c > 0))
 
 
-if __name__ == "__main__":
-
+def solution(coord_list_iterable):
     origin = Vector(0, 0)
-    with open("../data/p102_triangles.txt") as csvfile:
-        triangle_reader = csv.reader(csvfile)
-        print(sum(Triangle.from_coord_list(row).contains(origin)
-                  for row in triangle_reader))
+    return sum(Triangle.from_coord_list(coord_list).contains(origin)
+               for coord_list in coord_list_iterable)
+
+
+def test_cases(*args):
+    return [([[[-340, 495, -153, -910, 835, -947]]], 1),
+            ([[[-175, 41, -421, -714, 574, -645]]], 0)]
+
+
+def args(resource_accessor):
+    with open(resource_accessor.resource_filename("triangles.txt")) as csvfile:
+        return [[row for row in csv.reader(csvfile)]]

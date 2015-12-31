@@ -1,4 +1,13 @@
-import pkg_resources
+# We define the Matrix Sum of a matrix as the maximum sum of matrix elements
+# with each element being the only one in his row and column. For example, the
+# Matrix Sum of the matrix below equals 3315 ( = 863 + 383 + 343 + 959 + 767):
+
+#   7  53 183 439 863
+# 497 383 563  79 973
+# 287  63 343 169 583
+# 627 343 773 959 943
+# 767 473 103 699 303
+
 from operator import itemgetter
 from collections import Counter
 
@@ -39,8 +48,15 @@ def solution(rows):
     return sum(sorted_rows[i][j][1] for i, j in enumerate(idxs))
 
 
-def args():
-    fn = pkg_resources.resource_filename(__name__, "data/p345_matrix2.txt")
-    with open(fn) as f:
-        rows = [[int(c) for c in row.split()] for row in f]
-    return [rows]
+def read_matrix(filename):
+    with open(filename) as f:
+        return [[int(c) for c in row.split()] for row in f]
+
+
+def test_cases(resource_accessor):
+    return [([read_matrix(resource_accessor.resource_filename("matrix1.txt"))],
+             3315)]
+
+
+def args(resource_accessor):
+    return [read_matrix(resource_accessor.resource_filename("matrix2.txt"))]

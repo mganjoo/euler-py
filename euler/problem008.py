@@ -3,8 +3,6 @@
 # 1000-digit number that have the greatest product. What is the value of this
 # product?
 
-import pkg_resources
-
 
 def solution(n_str, count):
     n = len(n_str)
@@ -24,8 +22,14 @@ def solution(n_str, count):
     return max_prod
 
 
-def args():
-    fn = pkg_resources.resource_filename(__name__, "data/p008_number.txt")
-    with open(fn) as num_file:
-        num_str = "".join(line.strip() for line in num_file)
-    return [num_str, 13]
+def number_string(resource_accessor):
+    with open(resource_accessor.resource_filename("number.txt")) as num_file:
+        return "".join(line.strip() for line in num_file)
+
+
+def test_cases(resource_accessor):
+    return [([number_string(resource_accessor), 4], 5832)]
+
+
+def args(resource_accessor):
+    return [number_string(resource_accessor), 13]

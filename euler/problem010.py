@@ -20,5 +20,9 @@ def solution(n):
     return sum_primes
 
 
-def full():
+def test_cases(*args):
+    return [([10], 17)]
+
+
+def args(*args):
     return [2000000]

@@ -26,5 +26,9 @@ def solution(n):
     return p if n == 1 else n
 
 
-def args():
+def test_cases(*args):
+    return [([13195], 29)]
+
+
+def args(*args):
     return [600851475143]

@@ -32,5 +32,9 @@ def solution(n):
     return num
 
 
-def args():
+def test_cases(*args):
+    return [([10], 2520)]
+
+
+def args(*args):
     return [20]
